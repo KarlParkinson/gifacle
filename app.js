@@ -14,9 +14,18 @@ if (!VALIDATION_TOKEN) {
 }
 
 app.get("/", function(req, res){
-  res.send(VALIDATION_TOKEN)
+  res.send("hello");
 })
 
+app.get('/webhook', function(req, res) {
+  if (req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+    console.log("Validating webhook");
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);
+  }
+});
 
 
 app.listen(app.get('port'), function() {
