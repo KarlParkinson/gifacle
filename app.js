@@ -27,6 +27,12 @@ app.get('/webhook', function(req, res) {
   }
 });
 
+app.post('/webhook', function (req, res) {
+    res.sendStatus(200);
+  }
+});
+
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
