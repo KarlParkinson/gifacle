@@ -1,5 +1,24 @@
 'use strict';
 
+function hitGiphyAPI() {
+}
+
+function shouldTakeAction(text) {
+    return /^gifacle.*/.test(text)
+}
+
+function parseMessage(text) {
+  if (!shouldTakeAction(text)) return;
+
+  
+}
+
+function gifParty() {
+}
+
+function gifTranslate() {
+}
+
 const express = require('express');
 const https = require('https');
 
@@ -17,6 +36,7 @@ app.get("/", function(req, res){
   res.send("hello");
 })
 
+// Routes
 app.get('/webhook', function(req, res) {
   if (req.query['hub.verify_token'] === VALIDATION_TOKEN) {
     console.log("Validating webhook");
