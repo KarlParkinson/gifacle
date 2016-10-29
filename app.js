@@ -136,13 +136,11 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function (req, res) {
 //  console.log(req)
   var data = req.body;
-  console.log("++++++++++++++++++++++++++++++++++++++++");
-  console.log("req is : ", req);
-  console.log("========================================");
+  console.log(data);
 
   if (data.object == 'page') {
     data.entry.forEach(function (pageEntry) {
-      pageEntry.messagingforEach(function (msg) {
+      pageEntry.messaging.forEach(function (msg) {
         if (isTextMessage(msg)) {
           handleTextMessage(msg)
           // ignore others for now
