@@ -106,9 +106,11 @@ app.get('/webhook', function(req, res) {
 });
 
 app.post('/webhook', function (req, res) {
-  console.log(req)
+//  console.log(req)
   var data = req.body;
-  console.log(data);
+  console.log("++++++++++++++++++++++++++++++++++++++++");
+  console.log("data is : ", data);
+  console.log("========================================");
 
   if (data.object == 'page') {
     data.entry.forEach(function (pageEntry) {
