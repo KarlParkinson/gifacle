@@ -98,6 +98,7 @@ function verifyRequestSignature(req, res, buf) {
 }
 
 
+const bodyParser = require('body-parser')
 const express = require('express');
 const https = require('https');
 const request = require('request');

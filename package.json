@@ -20,6 +20,7 @@
   "homepage": "https://github.com/KarlParkinson/gifacle#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "body-parser": "^1.15.0"
   }
 }
