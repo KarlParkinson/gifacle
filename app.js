@@ -105,7 +105,7 @@ const crypto = require('crypto');
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
-app.use(bodyParse.json({ verify: verifyRequestSignature }));
+app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
 const VALIDATION_TOKEN = process.env.VALIDATION_TOKEN;
