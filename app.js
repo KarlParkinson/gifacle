@@ -109,7 +109,7 @@ app.post('/webhook', function (req, res) {
 //  console.log(req)
   var data = req.body;
   console.log("++++++++++++++++++++++++++++++++++++++++");
-  console.log("data is : ", data);
+  console.log("req is : ", req);
   console.log("========================================");
 
   if (data.object == 'page') {
