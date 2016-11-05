@@ -18,11 +18,11 @@ function hitGiphyAPI(translationPhrase) {
 }
 
 function shouldTakeAction(text) {
-  return /^gifacle.*/.test(text);
+  return /^gifacle\s.*/.test(text);
 }
 
 function parseMessage(text) {
-  if (!shouldTakeAction(text)) return;
+  return /^gifacle\s(.*)/.exec(text)[1]
 }
 
 function gifParty() {
