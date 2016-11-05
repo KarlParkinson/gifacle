@@ -22,7 +22,11 @@ function shouldTakeAction(text) {
 }
 
 function parseMessage(text) {
-  return /^gifacle\s(.*)/.exec(text)[1]
+  console.log(text)
+  phrase = /^gifacle\s(.*)/.exec(text)[1]
+  console.log(phrase[0])
+  console.log(phrase[1])
+  return phrase[1]
 }
 
 function gifParty() {
