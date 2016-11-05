@@ -1,7 +1,7 @@
 'use strict';
 
 function hitGiphyAPI(translationPhrase) {
-  gif = null;
+  var gif = null;
   request({
     uri: "http://api.giphy.com/v1/gifs/translate",
     qs: { s: translationPhrase, api_key: GIPHY_API_TOKEN }
@@ -23,7 +23,7 @@ function shouldTakeAction(text) {
 
 function parseMessage(text) {
   console.log(text)
-  phrase = /^gifacle\s(.*)/.exec(text)[1]
+  var phrase = /^gifacle\s(.*)/.exec(text)[1]
   console.log(phrase[0])
   console.log(phrase[1])
   return phrase[1]
@@ -92,8 +92,8 @@ function handleTextMessage(msg) {
 
   if (messageText) {
     if (shouldTakeAction(messageText)) {
-      phrase = parseMessage(messageText);
-      gif = hitGiphyAPI(phrase);
+      var phrase = parseMessage(messageText);
+      var gif = hitGiphyAPI(phrase);
       if (gif != null) {
         sendGif(senderID, gif);
       } else {
