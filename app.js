@@ -90,7 +90,7 @@ function handleTextMessage(msg) {
   if (messageText) {
     if (shouldTakeAction(messageText)) {
       var phrase = parseMessage(messageText);
-      console.log("phrase");
+      console.log(phrase);
       var gif = hitGiphyAPI(phrase);
       if (gif != null) {
         sendGif(senderID, gif);
