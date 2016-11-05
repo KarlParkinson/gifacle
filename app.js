@@ -8,6 +8,7 @@ function hitGiphyAPI(translationPhrase) {
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       gif = JSON.parse(body).data.images.fixed_height.url;
+      console.log("gif inside is: ");
       console.log(gif)
     } else {
       console.log("EEEERRRRRROOOOOORRRRRR");
@@ -15,6 +16,8 @@ function hitGiphyAPI(translationPhrase) {
       console.log(error);
     }
   });
+  console.log("gif outside is: ")
+  console.log(gif);
   return gif
 }
 
