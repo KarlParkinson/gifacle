@@ -1,6 +1,6 @@
 'use strict';
 
-function hitGiphyAPI(translationPhrase) {
+function hitGiphyAPI(translationPhrase, fn) {
   var gif = null;
   request({
     uri: "http://api.giphy.com/v1/gifs/translate",
@@ -8,17 +8,14 @@ function hitGiphyAPI(translationPhrase) {
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       gif = JSON.parse(body).data.images.fixed_height.url;
-      console.log("gif inside is: ");
-      console.log(gif)
+      fn(gif);
     } else {
       console.log("EEEERRRRRROOOOOORRRRRR");
       console.log(response.statusCode);
       console.log(error);
+      fn(null);
     }
   });
-  console.log("gif outside is: ")
-  console.log(gif);
-  return gif
 }
 
 function shouldTakeAction(text) {
@@ -94,12 +91,13 @@ function handleTextMessage(msg) {
     if (shouldTakeAction(messageText)) {
       var phrase = parseMessage(messageText);
       console.log(phrase);
-      var gif = hitGiphyAPI(phrase);
-      if (gif != null) {
-        sendGif(senderID, gif);
-      } else {
-        sendTextMessage(senderID, "could not match phrase");
-      }
+      hitGiphyAPI(phrase, function (gif) {
+        if (gif != null) {
+          sendGif(senderID, gif);
+        } else {
+          sendTextMessage(senderID, "could not match phrase");
+        }
+      });
     }
   }
 }
