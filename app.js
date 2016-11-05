@@ -1,6 +1,20 @@
 'use strict';
 
-function hitGiphyAPI() {
+function hitGiphyAPI(translationPhrase) {
+  gif = null;
+  request({
+    uri: "http://api.giphy.com/v1/gifs/translate",
+    qs: { s: translationPhrase, api_key: GIPHY_API_TOKEN }
+  }, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      gif = JSON.parse(body).data.images.fixed_height.url;
+    } else {
+      console.log("EEEERRRRRROOOOOORRRRRR");
+      console.log(response.statusCode);
+      console.log(error);
+    }
+  });
+  return gif
 }
 
 function shouldTakeAction(text) {
@@ -42,6 +56,25 @@ function callSendAPI(message) {
   });
 }
 
+function sendGif(sendTo, gif) {
+  var messageData = {
+    recipient: {
+      id: sendTo
+    },
+    message: {
+      attachment: {
+        type: "image",
+        payload: {
+          url: gif
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+
 function handleTextMessage(msg) {
   var senderID = msg.sender.id;
   var recipientID = msg.recipient.id;
@@ -55,14 +88,18 @@ function handleTextMessage(msg) {
 
   if (messageText) {
     if (shouldTakeAction(messageText)) {
-      respondToTextMessage(senderID, "need to send gif");
-    } else {
-      respondToTextMessage(senderID, messageText);
+      phrase = parseMessage(messageText);
+      gif = hitGiphyAPI(phrase);
+      if (gif != null) {
+        sendGif(senderID, gif);
+      } else {
+        sendTextMessage(senderID, "could not match phrase");
+      }
     }
   }
 }
 
-function respondToTextMessage(sendTo, msg) {
+function sendTextMessage(sendTo, msg) {
   var messageData = {
     recipient: {
       id: sendTo
@@ -112,6 +149,7 @@ app.use(express.static('public'));
 const VALIDATION_TOKEN = process.env.VALIDATION_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const APP_SECRET = process.env.APP_SECRET;
+const GIPHY_API_TOKEN = "dc6zaTOxFJmzC";
 
 if (!VALIDATION_TOKEN) {
   console.error("VALIDATION_TOKEN missing");
