@@ -8,6 +8,7 @@ function hitGiphyAPI(translationPhrase) {
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       gif = JSON.parse(body).data.images.fixed_height.url;
+      console.log(gif)
     } else {
       console.log("EEEERRRRRROOOOOORRRRRR");
       console.log(response.statusCode);
@@ -89,6 +90,7 @@ function handleTextMessage(msg) {
   if (messageText) {
     if (shouldTakeAction(messageText)) {
       var phrase = parseMessage(messageText);
+      console.log("phrase");
       var gif = hitGiphyAPI(phrase);
       if (gif != null) {
         sendGif(senderID, gif);
